@@ -17,6 +17,12 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
+use Tapp\FilamentAuthenticationLog\FilamentAuthenticationLogPlugin;
+use Awcodes\LightSwitch\LightSwitchPlugin;
+use Awcodes\Overlook\OverlookPlugin;
+use Awcodes\Overlook\Widgets\OverlookWidget;
+use Awcodes\FilamentStickyHeader\StickyHeaderPlugin;
+use Awcodes\FilamentQuickCreate\QuickCreatePlugin;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -30,6 +36,22 @@ class AdminPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::Amber,
             ])
+            ->plugins([
+                FilamentAuthenticationLogPlugin::make(),
+                QuickCreatePlugin::make(),
+                LightSwitchPlugin::make(),
+                StickyHeaderPlugin::make(),
+                OverlookPlugin::make()
+                ->sort(2)
+                ->columns([
+                    'default' => 1,
+                    'sm' => 2,
+                    'md' => 3,
+                    'lg' => 4,
+                    'xl' => 5,
+                    '2xl' => null,
+                ]),
+            ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([
@@ -39,6 +61,7 @@ class AdminPanelProvider extends PanelProvider
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,
+                OverlookWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,
