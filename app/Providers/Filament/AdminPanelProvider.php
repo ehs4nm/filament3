@@ -17,7 +17,6 @@ use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\Session\Middleware\AuthenticateSession;
 use Illuminate\Session\Middleware\StartSession;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
-use Tapp\FilamentAuthenticationLog\FilamentAuthenticationLogPlugin;
 use Awcodes\LightSwitch\LightSwitchPlugin;
 use Awcodes\Overlook\OverlookPlugin;
 use Awcodes\Overlook\Widgets\OverlookWidget;
@@ -37,7 +36,6 @@ class AdminPanelProvider extends PanelProvider
                 'primary' => Color::Amber,
             ])
             ->plugins([
-                FilamentAuthenticationLogPlugin::make(),
                 QuickCreatePlugin::make(),
                 LightSwitchPlugin::make(),
                 StickyHeaderPlugin::make(),
