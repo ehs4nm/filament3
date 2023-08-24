@@ -22,6 +22,7 @@ use Awcodes\Overlook\OverlookPlugin;
 use Awcodes\Overlook\Widgets\OverlookWidget;
 use Awcodes\FilamentStickyHeader\StickyHeaderPlugin;
 use Awcodes\FilamentQuickCreate\QuickCreatePlugin;
+use Filament\FontProviders\LocalFontProvider;
 
 class AdminPanelProvider extends PanelProvider
 {
@@ -80,6 +81,19 @@ class AdminPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->databaseNotifications()
-            ->databaseNotificationsPolling('30s');
+            ->databaseNotificationsPolling('30s')
+            ->font(
+                'Iranyekan',
+                url: asset('\css\fonts.css'),
+                provider: LocalFontProvider::class,
+            )
+            ->colors([
+                'danger' => Color::Rose,
+                'gray' => Color::Gray,
+                'info' => Color::Blue,
+                'primary' => Color::Green,
+                'success' => Color::Emerald,
+                'warning' => Color::Orange,
+            ]);
     }
 }
