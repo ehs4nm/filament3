@@ -54,8 +54,23 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         return true;
     }
 
+    public function canImpersonate()
+    {
+        return true;
+    }
+
+    public function canBeImpersonated()
+    {
+        return true;
+    }
+
     public function getFilamentAvatarUrl(): ?string
     {
         return $this->avatar_url ? Storage::url($this->avatar_url) : null ;
+    }
+
+    public function routeNotificationForKavenegar($driver, $notification = null)
+    {
+        return $this->mobile;
     }
 }

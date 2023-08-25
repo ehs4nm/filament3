@@ -15,6 +15,7 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
+        <x-impersonate::banner :display='auth()->user()->name'  style='light'/>
         <div class="min-h-screen bg-gray-100">
             @include('layouts.navigation')
 

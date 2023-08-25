@@ -9,9 +9,11 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use STS\FilamentImpersonate\Tables\Actions\Impersonate;
 
 class UserResource extends Resource
 {
@@ -31,13 +33,19 @@ class UserResource extends Resource
     {
         return $table
             ->columns([
-                //
+                TextColumn::make('id')->label('#'),
+                TextColumn::make('name')->label('نام و نام خانوادگی')->searchable()->sortable(),
+                TextColumn::make('mobile')->label('موبایل')->searchable()->sortable(),
+                TextColumn::make('verify_code')->label('کدتایید'),
+                TextColumn::make('created_at')->label('ایجاد')->jalaliDate(),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Impersonate::make('impersonate'),
+                Tables\Actions\EditAction::make()->label(''),
+                Tables\Actions\DeleteAction::make()->label(''),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
