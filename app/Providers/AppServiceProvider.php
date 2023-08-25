@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Filament\Support\Facades\FilamentView;
+use Illuminate\Contracts\View\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        FilamentView::registerRenderHook(
+            'panels::auth.login.form.before',
+            fn (): View => view('auth.login'),
+        );
     }
 
     /**

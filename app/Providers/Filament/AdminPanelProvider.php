@@ -24,6 +24,7 @@ use Awcodes\FilamentStickyHeader\StickyHeaderPlugin;
 use Awcodes\FilamentQuickCreate\QuickCreatePlugin;
 use Filament\FontProviders\LocalFontProvider;
 
+
 class AdminPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
@@ -32,8 +33,8 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
-            ->registration()
+            ->login(\App\Livewire\Auth\Login::class)
+            ->registration(\App\Livewire\Auth\Register::class)
             ->emailVerification()
             ->profile()
             ->passwordReset()
