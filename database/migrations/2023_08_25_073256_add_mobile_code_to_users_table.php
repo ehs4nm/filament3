@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('user', function (Blueprint $table) {
-            $table->string('mobile', 11)->nullable()->unique();
+        Schema::table('users', function (Blueprint $table) {
+            $table->unsignedInteger('verify_code')->nullable()->after('email');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('user', function (Blueprint $table) {
-            $table->dropColumn('mobile_phone');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('verify_code');
         });
     }
 };
