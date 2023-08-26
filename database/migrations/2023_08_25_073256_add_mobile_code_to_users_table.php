@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->unsignedInteger('verify_code')->nullable()->after('email');
+            $table->string('verify_code', 4)->nullable()->after('email');
         });
     }
 
