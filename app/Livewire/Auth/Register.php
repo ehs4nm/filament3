@@ -5,7 +5,6 @@ namespace App\Livewire\Auth;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Pages\Auth\Register as AuthRegister;
-use Livewire\Component;
 
 class Register extends AuthRegister
 {

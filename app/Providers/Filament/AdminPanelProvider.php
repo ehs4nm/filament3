@@ -22,6 +22,7 @@ use Awcodes\Overlook\OverlookPlugin;
 use Awcodes\Overlook\Widgets\OverlookWidget;
 use Awcodes\FilamentStickyHeader\StickyHeaderPlugin;
 use Awcodes\FilamentQuickCreate\QuickCreatePlugin;
+use Awcodes\LightSwitch\Enums\Alignment;
 use Filament\FontProviders\LocalFontProvider;
 
 
@@ -35,15 +36,18 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login(\App\Livewire\Auth\Login::class)
             ->registration(\App\Livewire\Auth\Register::class)
-            ->emailVerification()
+            // ->emailVerification()
+            ->pages([
+                    //
+                ])
             ->profile()
-            ->passwordReset()
+            ->passwordReset(\App\Livewire\Auth\RequestPasswordReset::class)
             ->colors([
                 'primary' => Color::Amber,
             ])
             ->plugins([
                 QuickCreatePlugin::make(),
-                LightSwitchPlugin::make(),
+                LightSwitchPlugin::make()->position(Alignment::TopCenter),
                 StickyHeaderPlugin::make(),
                 OverlookPlugin::make()
                 ->sort(2)
@@ -57,11 +61,11 @@ class AdminPanelProvider extends PanelProvider
                 ]),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
+            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Livewire\\Auth')
+            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->pages([
                 Pages\Dashboard::class,
             ])
-            ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
                 Widgets\FilamentInfoWidget::class,

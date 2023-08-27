@@ -15,4 +15,10 @@
             :full-width="$this->hasFullWidthFormActions()"
         />
     </x-filament-panels::form>
+    <style>
+        #data\.mobile{
+            text-align: center;
+            font-size: xx-large;
+        }
+    </style>
 </x-filament-panels::page.simple>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
+use App\Traits\GeneratesVerifyCode;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Models\Contracts\HasAvatar;
 use Filament\Panel;
@@ -15,7 +16,7 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable implements FilamentUser, HasAvatar
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable, GeneratesVerifyCode;
 
     /**
      * The attributes that are mass assignable.
@@ -26,6 +27,8 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         'name',
         'email',
         'password',
+        'verify_code',
+        'mobile',
     ];
 
     /**
@@ -72,5 +75,15 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     public function routeNotificationForKavenegar($driver, $notification = null)
     {
         return $this->mobile;
+    }
+
+    public function sendVerificationCode()
+    {
+        return $this->generatesVerifyCode($this);
+    }
+    
+    public function verifyMobile()
+    {
+        return $this->verifyCode($this);
     }
 }
