@@ -27,8 +27,9 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         'name',
         'email',
         'password',
-        'verify_code',
         'mobile',
+        'verify_code',
+        'mobile_verified_at',
     ];
 
     /**
@@ -82,8 +83,8 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
         return $this->generatesVerifyCode($this);
     }
     
-    public function verifyMobile()
+    public function verifyMobile($token)
     {
-        return $this->verifyCode($this);
+        return $this->verifyCode($this, $token);
     }
 }

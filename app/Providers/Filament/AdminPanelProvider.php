@@ -36,7 +36,6 @@ class AdminPanelProvider extends PanelProvider
             ->path('admin')
             ->login(\App\Livewire\Auth\Login::class)
             ->registration(\App\Livewire\Auth\Register::class)
-            // ->emailVerification()
             ->pages([
                     //
                 ])
@@ -61,14 +60,13 @@ class AdminPanelProvider extends PanelProvider
                 ]),
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Livewire\\Auth')
+            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->pages([
                 Pages\Dashboard::class,
             ])
             ->widgets([
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
                 OverlookWidget::class,
             ])
             ->middleware([
