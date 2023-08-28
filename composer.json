@@ -15,6 +15,7 @@
         "awcodes/light-switch": "^1.0",
         "awcodes/overlook": "^2.0",
         "aymanalhattami/filament-page-with-sidebar": "^2.0",
+        "bezhansalleh/filament-shield": "3.x-dev",
         "filament/filament": "3.0-stable",
         "filament/spatie-laravel-media-library-plugin": "3.0-stable",
         "guzzlehttp/guzzle": "^7.2",

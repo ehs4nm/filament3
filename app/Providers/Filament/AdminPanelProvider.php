@@ -48,6 +48,7 @@ class AdminPanelProvider extends PanelProvider
                 QuickCreatePlugin::make(),
                 LightSwitchPlugin::make()->position(Alignment::TopCenter),
                 StickyHeaderPlugin::make(),
+                \BezhanSalleh\FilamentShield\FilamentShieldPlugin::make(),
                 OverlookPlugin::make()
                 ->sort(2)
                 ->columns([
