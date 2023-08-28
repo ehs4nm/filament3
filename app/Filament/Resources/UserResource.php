@@ -6,6 +6,7 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -14,18 +15,44 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use STS\FilamentImpersonate\Tables\Actions\Impersonate;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
+use Illuminate\Support\Facades\Hash;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'داشبورد';
+    protected static ?string $label = 'کاربر';
+    protected static ?string $pluralLabel = 'کاربران';
+
+    protected static ?string $navigationIcon = 'heroicon-o-users';
 
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                //
+        ->schema([
+            SpatieMediaLibraryFileUpload::make('avatar')->label('تصویر')
+                ->directory('users/avatars')
+                ->collection('avatars')
+                ->conversion('thumb')
+                ->responsiveImages(),
+            Grid::make([
+                'default' => 1,
+                'sm' => 1,
+                'md' => 3,
+            ])->schema([
+                TextInput::make('name')->label('نام و نام خانوادگی')->required(),
+                TextInput::make('email')->label('ایمیل')->email()->default(''),
+                TextInput::make('mobile')->label('موبایل')->required()->length(11),
+                TextInput::make('password')->label('رمزعبور')
+                    ->password()
+                    ->dehydrateStateUsing(fn (string $state): string => Hash::make($state))
+                    ->dehydrated(fn (?string $state): bool => filled($state))
+                    ->required(fn (string $operation): bool => $operation === 'create'),
+                ]),
             ]);
     }
 
@@ -34,6 +61,7 @@ class UserResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')->label('#'),
+                SpatieMediaLibraryImageColumn::make('avatar')->label('آواتار')->conversion('thumb')->circular(),
                 TextColumn::make('name')->label('نام و نام خانوادگی')->searchable()->sortable(),
                 TextColumn::make('mobile')->label('موبایل')->searchable()->sortable(),
                 TextColumn::make('verify_code')->label('کدتایید'),
