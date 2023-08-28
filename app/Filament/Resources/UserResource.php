@@ -36,8 +36,9 @@ class UserResource extends Resource
         ->schema([
             SpatieMediaLibraryFileUpload::make('avatar')->label('تصویر')
                 ->directory('users/avatars')
-                ->collection('avatars')
                 ->conversion('thumb')
+                ->maxWidth(700)
+                ->collection('avatars')
                 ->responsiveImages(),
             Grid::make([
                 'default' => 1,
@@ -61,10 +62,14 @@ class UserResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')->label('#'),
-                SpatieMediaLibraryImageColumn::make('avatar')->label('آواتار')->conversion('thumb')->circular(),
+                SpatieMediaLibraryImageColumn::make('avatar')->label('آواتار')
+                    ->conversion('thumb')
+                    // ->collection('avatars')
+                    ->defaultImageUrl(fn() => filament()->hasDarkMode() ? url('/assets/images/user-light.svg') : url('/assets/images/user-dark.svg'))
+                    ->circular(),
                 TextColumn::make('name')->label('نام و نام خانوادگی')->searchable()->sortable(),
                 TextColumn::make('mobile')->label('موبایل')->searchable()->sortable(),
-                TextColumn::make('verify_code')->label('کدتایید'),
+                TextColumn::make('verify_code')->label('کد تایید'),
                 TextColumn::make('created_at')->label('ایجاد')->jalaliDate(),
             ])
             ->filters([

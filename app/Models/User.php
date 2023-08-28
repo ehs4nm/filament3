@@ -91,11 +91,13 @@ class User extends Authenticatable implements FilamentUser, HasAvatar, HasMedia
         return $this->verifyCode($this, $token);
     }
 
-    // public function registerMediaConversions(Media $media = null): void
-    // {
-    //     $this
-    //         ->addMediaConversion('thumb')
-    //         ->quality(80);
-    //         // ->withResponsiveImages();
-    // }
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this
+            ->addMediaConversion('thumb')
+            ->width(700)
+            ->height($this->height * 700 / ($this->width ?? 1))
+            ->quality(80);
+            // ->withResponsiveImages();
+    }
 }
