@@ -13,10 +13,13 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class User extends Authenticatable implements FilamentUser, HasAvatar
+class User extends Authenticatable implements FilamentUser, HasAvatar, HasMedia
 {
-    use HasApiTokens, HasFactory, Notifiable, GeneratesVerifyCode;
+    use HasApiTokens, HasFactory, Notifiable, GeneratesVerifyCode, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -87,4 +90,12 @@ class User extends Authenticatable implements FilamentUser, HasAvatar
     {
         return $this->verifyCode($this, $token);
     }
+
+    // public function registerMediaConversions(Media $media = null): void
+    // {
+    //     $this
+    //         ->addMediaConversion('thumb')
+    //         ->quality(80);
+    //         // ->withResponsiveImages();
+    // }
 }
