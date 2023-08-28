@@ -40,6 +40,7 @@ class Login extends AuthLogin
             ->telRegex('/^09\d{9}$/')
             ->mask('0999-999-9999')
             ->placeholder('0912-345-6789')
+            ->unique(ignoreRecord: true)
             ->autocomplete()
             ->autofocus();
     }
