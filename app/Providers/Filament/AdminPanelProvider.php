@@ -39,7 +39,7 @@ class AdminPanelProvider extends PanelProvider
             ->pages([
                     //
                 ])
-            ->profile()
+            ->profile(\App\Livewire\Auth\EditProfile::class)
             ->passwordReset(\App\Livewire\Auth\RequestPasswordReset::class)
             ->colors([
                 'primary' => Color::Amber,
