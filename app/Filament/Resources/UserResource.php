@@ -35,6 +35,15 @@ class UserResource extends Resource
         return $form
         ->schema([
             SpatieMediaLibraryFileUpload::make('avatar')->label('تصویر')
+                ->image()
+                ->imageEditor()
+                ->imageEditorMode(2)
+                ->imageEditorAspectRatios([
+                    '16:9',
+                    '4:3',
+                    '1:1',
+                ])
+                ->minSize(512)
                 ->directory('users/avatars')
                 ->conversion('thumb')
                 ->maxWidth(700)
